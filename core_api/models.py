@@ -70,3 +70,24 @@ class Doctor(models.Model):
 
     def __str__(self):
         return self.doctor_name
+
+
+class Parameters(models.Model):
+    name = models.CharField(max_length=250, null=True)
+    report_name = models.CharField(max_length=100, unique=True)
+    unit = models.CharField(max_length=30)
+    rate = models.DecimalField(null=True, max_digits=20, decimal_places=2)
+    method = models.CharField(max_length=30)
+    suffix = models.CharField(max_length=2)
+    formulae = models.CharField(max_length=100)
+    dc = models.CharField(max_length=1)
+    precision = models.IntegerField()
+    default_status = models.CharField(max_length=1)
+    created_on = models.DateTimeField(
+        auto_created=True, default=timezone.now)
+    is_required = models.BooleanField(default=True)
+
+    class Meta:
+        db_table = "parameters"
+        verbose_name = 'Parameters'
+        verbose_name_plural = 'Parameters'

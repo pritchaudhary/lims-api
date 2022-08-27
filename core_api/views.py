@@ -1,10 +1,10 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import render
-from core_api.models import Departments, Doctor, SubDepartments
+from core_api.models import Departments, Doctor, Parameters, SubDepartments
 from django.http import Http404
 from rest_framework import status
-from core_api.serializers import DepartmentsSerializer, DoctorSerializer, SubDepartmentSerializer
+from core_api.serializers import DepartmentsSerializer, DoctorSerializer, ParameterSerializer, SubDepartmentSerializer
 from accounts.helpers import response_dict
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
@@ -171,6 +171,63 @@ class DoctorViews(APIView):
                 return Response(response, status=status.HTTP_400_BAD_REQUEST)
             else:
                 instance = Doctor.objects.get(id=id)
+                instance.delete()
+                #### Below code for soft delete ##
+                # instance.is_active = False
+                # instance.save()
+                response = response_dict(
+                    data=dict(id=id), error=False, message="Successfully deleted.")
+                return Response(response, status=status.HTTP_200_OK)
+        except Exception as e:
+            response = response_dict(
+                data=None, error=True, message=str(e.__str__()))
+            return Response(response, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ParameterViews(APIView):
+    serializer_class = ParameterSerializer
+
+    def get_object(self, pk):
+        try:
+            return Parameters.objects.filter(pk=pk)
+        except Parameters.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk=None, format=None):
+        if pk:
+            data = self.get_object(pk)
+        else:
+            data = Parameters.objects.all()
+        serializer = ParameterSerializer(data, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = ParameterSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
+        else:
+            return Response({"status": "error", "data": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, pk=None, format=None):
+        data = Parameters.objects.get(pk=pk)
+        serializer = ParameterSerializer(
+            instance=data, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        try:
+            id = pk
+            if not (id and Parameters.objects.filter(id=id).exists()):
+                response = response_dict(
+                    data=None, error=True, message="Not record found")
+                return Response(response, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                instance = Parameters.objects.get(id=id)
                 instance.delete()
                 #### Below code for soft delete ##
                 # instance.is_active = False

@@ -7,11 +7,12 @@ from rest_framework import status
 from core_api.serializers import DepartmentsSerializer, DoctorSerializer, SubDepartmentSerializer
 from accounts.helpers import response_dict
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.generics import GenericAPIView
 
 # Create your views here.
 
 
-class DepartmentsViews(APIView):
+class DepartmentsViews(GenericAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = DepartmentsSerializer
 

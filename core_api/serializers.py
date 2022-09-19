@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Departments, Doctor, Parameters, SubDepartments
+from .models import Departments, Doctor, Parameters, Sampletype, Service, SubDepartments, Titles
 
 
 class DepartmentsSerializer(serializers.ModelSerializer):
@@ -26,4 +26,22 @@ class DoctorSerializer(serializers.ModelSerializer):
 class ParameterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Parameters
+        fields = ('__all__')
+
+
+class SampletypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sampletype
+        fields = ('__all__')
+
+
+class TitleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Titles
+        fields = ('__all__')
+
+
+class ServiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Service
         fields = ('__all__')

@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework import routers
 
-from core_api.views import DepartmentsViews, DoctorViews, ParameterViews, SubDepartmentViews
+from core_api.views import DepartmentsViews, DoctorViews, ParameterViews, ServiceViews, SubDepartmentViews
 
 
 router = routers.SimpleRouter()
@@ -15,4 +15,6 @@ urlpatterns = [
     path('doctor/<str:pk>', DoctorViews.as_view()),
     path('param/', ParameterViews.as_view()),
     path('param/<str:pk>', ParameterViews.as_view()),
+    path('service/', ServiceViews.as_view()),
+    path('service/<str:pk>', ServiceViews.as_view()),
 ]

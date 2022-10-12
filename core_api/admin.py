@@ -23,8 +23,8 @@ class SubDepartmentsModel(admin.ModelAdmin):
 
 @admin.register(Doctor)
 class DoctorModel(admin.ModelAdmin):
-    list_display = ("doctor_name", "mobileno")
-    search_fields = ["id", "doctor_name"]
+    list_display = ("full_name", "phone")
+    search_fields = ["id", "full_name"]
 
 
 @admin.register(Parameters)

@@ -39,7 +39,7 @@ class SubDepartments(models.Model):
 
 
 class Doctor(models.Model):
-    doctor_name = models.CharField(max_length=200)
+    full_name = models.CharField(max_length=200)
     first_name = models.CharField(max_length=200)
     middle_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
@@ -48,12 +48,12 @@ class Doctor(models.Model):
     phone = models.IntegerField()
     email = models.CharField(max_length=200)
     flag_status = models.CharField(max_length=1)
-    mobileno = models.IntegerField()
+    # mobileno = models.IntegerField()
     report_mail_flag = models.CharField(max_length=1)
     report_login_id = models.CharField(max_length=100)
     report_password = models.CharField(max_length=100)
     int_code = models.CharField(max_length=100)
-    last_modified_on = models.DateField()
+    # last_modified_on = models.DateField()
     dob = models.DateField()
     anniversary_date = models.DateField()
     license_no = models.CharField(max_length=200)
@@ -69,7 +69,7 @@ class Doctor(models.Model):
         verbose_name_plural = 'Doctor'
 
     def __str__(self):
-        return self.doctor_name
+        return self.full_name
 
 
 class Parameters(models.Model):
@@ -166,7 +166,7 @@ class Service(models.Model):
     sample_type = models.ForeignKey(
         Sampletype, on_delete=models.SET_NULL, null=True)
     disposal_day = models.IntegerField()
-    gender_type = models.CharField(max_length=6)
+    gender_type = models.CharField(max_length=6) # TODO: query
     special_instruction = models.CharField(max_length=250, null=True)
     pat_instruction = models.CharField(max_length=250, null=True)
     tech_instruction = models.CharField(max_length=250, null=True)
@@ -175,7 +175,7 @@ class Service(models.Model):
     lab_process_time = models.IntegerField()
     urgent_process_time = models.IntegerField()
     is_consent_flag = models.BooleanField(default=True)
-    services_status = models.CharField(max_length=1)
+    services_status = models.CharField(max_length=1) # TODO: query
     is_services_for_home_collection = models.BooleanField(default=True)
     is_pdf_services = models.BooleanField(default=True)
     is_manual_services = models.BooleanField(default=True)

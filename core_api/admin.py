@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from core_api.models import Departments, Doctor, Parameters, Sampletype, Service, SubDepartments, Titles
+from core_api.models import Departments, Doctor, Parameters, Sampletype, Service, Source, SubDepartments, Titles
 
 # Register your models here.
 
@@ -40,10 +40,15 @@ class SampletypeModel(admin.ModelAdmin):
 
 @admin.register(Titles)
 class TitleModel(admin.ModelAdmin):
-    list_display = ("name", "gender", "dislay_order", "is_active")
+    list_display = ("name", "gender", "display_order", "is_active")
     search_fields = ["name", "gender"]
 
 @admin.register(Service)
 class ServiceModel(admin.ModelAdmin):
     list_display = ("name", "report_name", "service_deptname", "rate", "method")
     search_fields = ["name", "report_name"]
+
+@admin.register(Source)
+class ServiceModel(admin.ModelAdmin):
+    list_display = ("name", "is_active")
+    search_fields = ["name", "is_active"]

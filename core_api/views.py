@@ -251,16 +251,17 @@ class TitleViews(APIView):
 
     def get_object(self, pk):
         try:
-            return Parameters.objects.filter(pk=pk)
-        except Parameters.DoesNotExist:
+            return Titles.objects.filter(pk=pk)
+        except Titles.DoesNotExist:
             raise Http404
 
     def get(self, request, pk=None, format=None):
         if pk:
-            data = self.get_object(pk)
+            data = Titles.objects.get(pk = pk) #self.get_object(pk)
+            serializer = TitleSerializer(data, many=False)
         else:
             data = Titles.objects.all()
-        serializer = TitleSerializer(data, many=True)
+            serializer = TitleSerializer(data, many=True)
         return Response(serializer.data)
 
     def post(self, request):
@@ -370,10 +371,11 @@ class SampleTypeViews(APIView):
 
     def get(self, request, pk=None, format=None):
         if pk:
-            data = self.get_object(pk)
+            data = Sampletype.objects.get(pk = pk) #self.get_object(pk)
+            serializer = SampletypeSerializer(data, many=False)
         else:
             data = Sampletype.objects.all()
-        serializer = SampletypeSerializer(data, many=True)
+            serializer = SampletypeSerializer(data, many=True)
         return Response(serializer.data)
 
     def post(self, request):

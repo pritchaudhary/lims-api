@@ -1,3 +1,4 @@
+from email.policy import default
 from django.utils import timezone
 from django.db import models
 
@@ -127,7 +128,7 @@ class Titles(models.Model):
     ]
 
     name = models.CharField(max_length=200)
-    dislay_order = models.IntegerField()
+    display_order = models.IntegerField()
     gender = models.CharField(
         max_length=1, choices=GENDER_CHOICES, default='M', unique=True)
     created_on = models.DateTimeField(
@@ -192,3 +193,7 @@ class Service(models.Model):
 
     def __str__(self):
         return self.name
+
+class Source(models.Model):
+    name= models.CharField(max_length=100)
+    is_active = models.BooleanField(default=True)

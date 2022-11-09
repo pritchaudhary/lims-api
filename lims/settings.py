@@ -44,7 +44,8 @@ INSTALLED_APPS = [
 
     # Custom Apps
     'accounts',
-    'core_api'
+    'core_api',
+    'transactions'
 ]
 
 REST_FRAMEWORK = {

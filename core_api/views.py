@@ -70,6 +70,20 @@ class DepartmentsViews(GenericAPIView):
                 data=None, error=True, message=str(e.__str__()))
             return Response(response, status=status.HTTP_400_BAD_REQUEST)
 
+class DepartmentsByIdViews(GenericAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = DepartmentsSerializer
+
+    def get(self, request, pk=None, format=None):
+        if pk:
+            data = Departments.objects.get(pk = pk) #self.get_object(pk)
+            serializer = DepartmentsSerializer(data, many=False)
+        else:
+            data = Departments.objects.all()
+            serializer = DepartmentsSerializer(data, many=True)
+        return Response(serializer.data)
+
+   
 
 class SubDepartmentViews(APIView):
     # permission_classes = (IsAuthenticated,)

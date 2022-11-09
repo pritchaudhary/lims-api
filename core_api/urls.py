@@ -1,14 +1,14 @@
 from django.urls import path, include
 from rest_framework import routers
 
-from core_api.views import DepartmentsViews, DoctorViews, ParameterViews, SampleTypeViews, ServiceViews, SubDepartmentViews, TitleViews
+from core_api.views import DepartmentsViews, DoctorViews, ParameterViews, SampleTypeViews, ServiceViews, SubDepartmentViews, TitleViews, DepartmentsByIdViews
 
 
 router = routers.SimpleRouter()
 
 urlpatterns = [
     path('department/', DepartmentsViews.as_view()),
-    path('department/<str:pk>', DepartmentsViews.as_view()),
+    path('department/<str:pk>', DepartmentsByIdViews.as_view()),
     path('sub-department/', SubDepartmentViews.as_view()),
     path('sub-department/<str:pk>', SubDepartmentViews.as_view()),
     path('doctor/', DoctorViews.as_view()),

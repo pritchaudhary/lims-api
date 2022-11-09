@@ -7,11 +7,12 @@ from rest_framework import status
 from core_api.serializers import DepartmentsSerializer, DoctorSerializer, ParameterSerializer, SampletypeSerializer, ServiceSerializer, SubDepartmentSerializer, TitleSerializer
 from accounts.helpers import response_dict
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.generics import GenericAPIView
 
 # Create your views here.
 
 
-class DepartmentsViews(APIView):
+class DepartmentsViews(GenericAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = DepartmentsSerializer
 
@@ -69,6 +70,20 @@ class DepartmentsViews(APIView):
                 data=None, error=True, message=str(e.__str__()))
             return Response(response, status=status.HTTP_400_BAD_REQUEST)
 
+class DepartmentsByIdViews(GenericAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = DepartmentsSerializer
+
+    def get(self, request, pk=None, format=None):
+        if pk:
+            data = Departments.objects.get(pk = pk) #self.get_object(pk)
+            serializer = DepartmentsSerializer(data, many=False)
+        else:
+            data = Departments.objects.all()
+            serializer = DepartmentsSerializer(data, many=True)
+        return Response(serializer.data)
+
+   
 
 class SubDepartmentViews(APIView):
     # permission_classes = (IsAuthenticated,)

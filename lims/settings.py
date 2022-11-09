@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'dj_rest_auth',
+    'drf_yasg',
     'corsheaders',
 
     # Custom Apps
@@ -164,6 +165,16 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'api_key': {
+            'type': 'apiKey',
+            'in': 'header',
+            'name': 'Authorization'
+        }
+    },
+}
 # token expiration
 import datetime
 

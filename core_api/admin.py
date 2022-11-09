@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from core_api.models import Departments, Doctor, SubDepartments
+from core_api.models import Departments, Doctor, Parameters, Sampletype, Service, Source, SubDepartments, Titles
 
 # Register your models here.
 
@@ -23,5 +23,32 @@ class SubDepartmentsModel(admin.ModelAdmin):
 
 @admin.register(Doctor)
 class DoctorModel(admin.ModelAdmin):
-    list_display = ("doctor_name", "mobileno")
-    search_fields = ["id", "doctor_name"]
+    list_display = ("full_name", "phone")
+    search_fields = ["id", "full_name"]
+
+
+@admin.register(Parameters)
+class ParametersModel(admin.ModelAdmin):
+    list_display = ("name", "report_name", "unit", "rate", "method", "suffix")
+    search_fields = ["name", "report_name"]
+
+
+@admin.register(Sampletype)
+class SampletypeModel(admin.ModelAdmin):
+    list_display = ("name", "sample_type", "description", "is_active")
+    search_fields = ["name", "sample_type"]
+
+@admin.register(Titles)
+class TitleModel(admin.ModelAdmin):
+    list_display = ("name", "gender", "display_order", "is_active")
+    search_fields = ["name", "gender"]
+
+@admin.register(Service)
+class ServiceModel(admin.ModelAdmin):
+    list_display = ("name", "report_name", "service_deptname", "rate", "method")
+    search_fields = ["name", "report_name"]
+
+@admin.register(Source)
+class ServiceModel(admin.ModelAdmin):
+    list_display = ("name", "is_active")
+    search_fields = ["name", "is_active"]

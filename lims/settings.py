@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-9y13q*(=ko93&tf)+e3gx-lfte=mp$0hjg2eaxg!tny_&m+d_r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
 
 
 # Application definition
@@ -41,10 +41,12 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'dj_rest_auth',
     'drf_yasg',
+    'corsheaders',
 
     # Custom Apps
     'accounts',
-    'core_api'
+    'core_api',
+    'transactions'
 ]
 
 REST_FRAMEWORK = {
@@ -64,7 +66,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+ALLOWED_HOSTS = ["*"]
 
 ROOT_URLCONF = 'lims.urls'
 
@@ -167,3 +175,7 @@ SWAGGER_SETTINGS = {
         }
     },
 }
+# token expiration
+import datetime
+
+TOKEN_TTL = datetime.timedelta(days=15)
